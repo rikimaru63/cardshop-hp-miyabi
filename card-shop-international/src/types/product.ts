@@ -9,8 +9,8 @@ export interface Product {
   imageUrl: string;
   images?: string[];
   stock: number;
-  rarity?: 'Common' | 'Rare' | 'Super Rare' | 'Ultra Rare' | 'Secret Rare';
-  condition?: 'Mint' | 'Near Mint' | 'Lightly Played' | 'Moderately Played' | 'Heavily Played' | 'Damaged';
+  rarity?: 'Common' | 'Rare' | 'Super Rare' | 'Ultra Rare' | 'Secret Rare' | 'UR' | 'SR' | 'R' | 'C' | 'PR' | 'P' | 'N' | 'SEC' | 'HR';
+  condition?: 'Mint' | 'Near Mint' | 'Lightly Played' | 'Moderately Played' | 'Heavily Played' | 'Damaged' | 'S' | 'A' | 'B' | 'C' | 'PSA10' | 'PSA9' | 'PSA8';
   set?: string;
   cardNumber?: string;
   language?: 'Japanese' | 'English' | 'Korean' | 'Chinese';

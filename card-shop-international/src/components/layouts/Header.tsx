@@ -3,13 +3,11 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Search, ShoppingCart, User, Menu, X } from 'lucide-react';
+import { Search, ShoppingCart } from 'lucide-react';
 import { useCartStore } from '@/stores/cartStore';
-import { categories } from '@/lib/data/products';
 
 export default function Header() {
   const [searchQuery, setSearchQuery] = useState('');
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const router = useRouter();
   const { getTotalItems, openCart } = useCartStore();
 
@@ -24,145 +22,89 @@ export default function Header() {
   const totalItems = getTotalItems();
 
   return (
-    <header className="bg-white shadow-md sticky top-0 z-50">
-      {/* Top Bar */}
-      <div className="bg-red-600 text-white text-sm py-1">
-        <div className="container mx-auto px-4 text-center">
-          Free shipping on orders over $100 | Same day shipping available
-        </div>
-      </div>
-
+    <header className="bg-white border-b border-gray-200">
       {/* Main Header */}
-      <div className="container mx-auto px-4 py-4">
+      <div className="container mx-auto px-4 py-3">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2">
-            <div className="bg-red-600 text-white px-3 py-2 rounded-lg font-bold text-xl">
-              CardShop
-            </div>
-            <span className="text-gray-600 font-medium hidden sm:block">International</span>
+          <Link href="/" className="text-2xl font-bold text-black">
+            CardShop
           </Link>
 
           {/* Search Bar - Desktop */}
-          <div className="hidden md:flex flex-1 max-w-2xl mx-8">
+          <div className="hidden md:flex flex-1 max-w-lg mx-8">
             <form onSubmit={handleSearch} className="w-full flex">
               <input
                 type="text"
-                placeholder="Search for cards, sets, or categories..."
+                placeholder="商品名で検索"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="flex-1 px-4 py-3 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                className="flex-1 px-4 py-2 border border-gray-300 focus:outline-none focus:border-black text-sm"
               />
               <button
                 type="submit"
-                className="bg-red-600 text-white px-6 py-3 rounded-r-lg hover:bg-red-700 transition-colors"
+                className="bg-black text-white px-4 py-2 hover:bg-gray-800 transition-colors"
               >
-                <Search className="h-5 w-5" />
+                <Search className="h-4 w-4" />
               </button>
             </form>
           </div>
 
           {/* Right Section */}
-          <div className="flex items-center space-x-4">
-            {/* Search Button - Mobile */}
-            <button className="md:hidden p-2 text-gray-600 hover:text-gray-900">
-              <Search className="h-6 w-6" />
-            </button>
-
-            {/* User Account */}
-            <Link 
-              href="/login" 
-              className="hidden sm:flex items-center space-x-1 text-gray-600 hover:text-gray-900 transition-colors"
-            >
-              <User className="h-6 w-6" />
-              <span className="hidden lg:block">Login</span>
-            </Link>
-
+          <div className="flex items-center space-x-6 text-sm">
             {/* Cart */}
             <button
               onClick={openCart}
-              className="relative p-2 text-gray-600 hover:text-gray-900 transition-colors"
+              className="relative text-black hover:text-gray-600 transition-colors flex items-center space-x-1"
             >
-              <ShoppingCart className="h-6 w-6" />
+              <ShoppingCart className="h-4 w-4" />
+              <span>カート</span>
               {totalItems > 0 && (
-                <span className="absolute -top-1 -right-1 bg-red-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
                   {totalItems}
                 </span>
               )}
             </button>
 
-            {/* Mobile Menu Toggle */}
-            <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden p-2 text-gray-600 hover:text-gray-900"
+            {/* Login Link */}
+            <Link 
+              href="/login" 
+              className="text-black hover:text-gray-600 transition-colors"
             >
-              {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-            </button>
+              ログイン
+            </Link>
+
+            {/* Register Link */}
+            <Link 
+              href="/register" 
+              className="text-black hover:text-gray-600 transition-colors"
+            >
+              新規登録
+            </Link>
           </div>
         </div>
 
         {/* Mobile Search */}
-        <div className="md:hidden mt-4">
+        <div className="md:hidden mt-3">
           <form onSubmit={handleSearch}>
             <div className="flex">
               <input
                 type="text"
-                placeholder="Search for cards..."
+                placeholder="商品名で検索"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="flex-1 px-4 py-3 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                className="flex-1 px-3 py-2 border border-gray-300 focus:outline-none focus:border-black text-sm"
               />
               <button
                 type="submit"
-                className="bg-red-600 text-white px-4 py-3 rounded-r-lg hover:bg-red-700"
+                className="bg-black text-white px-3 py-2 hover:bg-gray-800"
               >
-                <Search className="h-5 w-5" />
+                <Search className="h-4 w-4" />
               </button>
             </div>
           </form>
         </div>
       </div>
-
-      {/* Mobile Menu */}
-      {isMobileMenuOpen && (
-        <div className="md:hidden bg-white border-t shadow-lg">
-          <nav className="container mx-auto px-4 py-4">
-            <div className="space-y-3">
-              <Link 
-                href="/" 
-                className="block py-2 text-gray-700 hover:text-red-600 transition-colors"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Home
-              </Link>
-              <Link 
-                href="/products" 
-                className="block py-2 text-gray-700 hover:text-red-600 transition-colors"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                All Products
-              </Link>
-              {categories.map((category) => (
-                <Link
-                  key={category.id}
-                  href={`/category/${category.slug}`}
-                  className="block py-2 pl-4 text-gray-600 hover:text-red-600 transition-colors"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  {category.name}
-                </Link>
-              ))}
-              <Link 
-                href="/login" 
-                className="block py-2 text-gray-700 hover:text-red-600 transition-colors"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Login / Register
-              </Link>
-            </div>
-          </nav>
-        </div>
-      )}
     </header>
   );
 }
