@@ -3,20 +3,30 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Search, ShoppingCart } from 'lucide-react';
+import { Search, ShoppingCart, Menu } from 'lucide-react';
 import { useCartStore } from '@/stores/cartStore';
+import { useSearchStore } from '@/stores/searchStore';
+import { SearchBar } from '@/components/ui/SearchBar';
+import { MobileSearchButton } from '@/components/ui/MobileSearchOverlay';
 
 export default function Header() {
   const [searchQuery, setSearchQuery] = useState('');
   const router = useRouter();
   const { getTotalItems, openCart } = useCartStore();
+  const { setQuery, search } = useSearchStore();
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchQuery.trim()) {
-      router.push(`/products?search=${encodeURIComponent(searchQuery)}`);
+      setQuery(searchQuery);
+      router.push(`/search?q=${encodeURIComponent(searchQuery)}`);
+      search();
       setSearchQuery('');
     }
+  };
+
+  const handleAdvancedSearch = () => {
+    router.push('/search');
   };
 
   const totalItems = getTotalItems();
@@ -32,22 +42,13 @@ export default function Header() {
           </Link>
 
           {/* Search Bar - Desktop */}
-          <div className="hidden md:flex flex-1 max-w-lg mx-8">
-            <form onSubmit={handleSearch} className="w-full flex">
-              <input
-                type="text"
-                placeholder="商品名で検索"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="flex-1 px-4 py-2 border border-gray-300 focus:outline-none focus:border-black text-sm"
-              />
-              <button
-                type="submit"
-                className="bg-black text-white px-4 py-2 hover:bg-gray-800 transition-colors"
-              >
-                <Search className="h-4 w-4" />
-              </button>
-            </form>
+          <div className="hidden md:flex flex-1 max-w-2xl mx-8">
+            <SearchBar
+              placeholder="Search for trading cards, sets, or characters..."
+              className="w-full"
+              showFilters={true}
+              showSuggestions={true}
+            />
           </div>
 
           {/* Right Section */}
@@ -86,23 +87,7 @@ export default function Header() {
 
         {/* Mobile Search */}
         <div className="md:hidden mt-3">
-          <form onSubmit={handleSearch}>
-            <div className="flex">
-              <input
-                type="text"
-                placeholder="商品名で検索"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="flex-1 px-3 py-2 border border-gray-300 focus:outline-none focus:border-black text-sm"
-              />
-              <button
-                type="submit"
-                className="bg-black text-white px-3 py-2 hover:bg-gray-800"
-              >
-                <Search className="h-4 w-4" />
-              </button>
-            </div>
-          </form>
+          <MobileSearchButton />
         </div>
       </div>
     </header>
