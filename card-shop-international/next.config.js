@@ -6,8 +6,7 @@ const nextConfig = {
     unoptimized: true,
   },
   output: 'export',
-  basePath: '/card-shop-international',
-  assetPrefix: '/card-shop-international',
+  basePath: '/my-ai-project/card-shop-international',
 }
 
 export default nextConfig
