@@ -4,9 +4,9 @@ import CategoryPageClient from '@/components/ui/CategoryPageClient';
 import { categories, getProductsByCategory } from '@/lib/data/products';
 
 interface CategoryPageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 // Generate static params for all categories
@@ -16,16 +16,17 @@ export async function generateStaticParams() {
   }));
 }
 
-export default function CategoryPage({ params }: CategoryPageProps) {
+export default async function CategoryPage({ params }: CategoryPageProps) {
+  const { slug } = await params;
   // Find the category
-  const category = categories.find(cat => cat.slug === params.slug);
+  const category = categories.find(cat => cat.slug === slug);
   
   if (!category) {
     notFound();
   }
 
   // Get all products for this category
-  const categoryProducts = getProductsByCategory(params.slug);
+  const categoryProducts = getProductsByCategory(slug);
 
   return (
     <div className="container mx-auto px-4 py-8">

@@ -34,7 +34,6 @@ export function MobileSearchButton() {
               className="w-full"
               showFilters={true}
               showSuggestions={true}
-              autoFocus={true}
             />
           </div>
         </div>

@@ -1,4 +1,4 @@
-import { Product, Category } from '@/types/product';
+import { Product, Category, GameType, CardCondition } from '@/types/product';
 
 export const categories: Category[] = [
   {
@@ -59,9 +59,52 @@ export const categories: Category[] = [
   }
 ];
 
+// Helper function to map category to GameType
+const getGameType = (category: string): GameType => {
+  const gameTypeMap: Record<string, GameType> = {
+    'ポケモン': 'POKEMON',
+    'ワンピース': 'ONE_PIECE',
+    'ドラゴンボール': 'DRAGON_BALL',
+    '遊戯王': 'YUGIOH',
+    'デジモン': 'DIGIMON'
+  };
+  return gameTypeMap[category] || 'OTHER';
+};
+
+// Helper to create Product from simplified data
+const createProduct = (data: any): Product => {
+  return {
+    ...data,
+    sku: data.id,
+    nameEn: data.name,
+    nameJa: data.name,
+    priceUsd: Math.round(data.price / 150), // Convert JPY to USD
+    priceJpy: data.price,
+    categoryId: getCategoryId(data.category),
+    gameType: getGameType(data.category),
+    images: [data.imageUrl],
+    stockQuantity: data.stock,
+    active: true,
+    isNew: data.isNew || false,
+    onSale: data.onSale || false
+  };
+};
+
+// Helper function to get categoryId
+const getCategoryId = (category: string): string => {
+  const categoryMap: Record<string, string> = {
+    'ポケモン': 'pokemon',
+    'ワンピース': 'one-piece',
+    'ドラゴンボール': 'dragon-ball',
+    '遊戯王': 'yu-gi-oh',
+    'デジモン': 'digimon'
+  };
+  return categoryMap[category] || 'other';
+};
+
 export const products: Product[] = [
   // ポケモンカード
-  {
+  createProduct({
     id: 'poke-001',
     name: 'リザードン 基本セット 無印版',
     price: 298000,
@@ -72,15 +115,15 @@ export const products: Product[] = [
     imageUrl: 'https://via.placeholder.com/300x400/FF6B6B/FFFFFF?text=リザードン',
     stock: 3,
     rarity: 'UR',
-    condition: 'A',
+    condition: 'NEAR_MINT' as CardCondition,
     set: '基本セット',
     cardNumber: '4/102',
     language: 'Japanese',
     featured: true,
     isNew: false,
     onSale: true
-  },
-  {
+  }),
+  createProduct({
     id: 'poke-002',
     name: 'カメックス 基本セット',
     price: 148000,
@@ -90,13 +133,13 @@ export const products: Product[] = [
     imageUrl: 'https://via.placeholder.com/300x400/4ECDC4/FFFFFF?text=カメックス',
     stock: 5,
     rarity: 'R',
-    condition: 'S',
+    condition: 'MINT' as CardCondition,
     set: '基本セット',
     cardNumber: '2/102',
     language: 'Japanese',
     featured: true
-  },
-  {
+  }),
+  createProduct({
     id: 'poke-003',
     name: 'フシギバナ PSA10鑑定品',
     price: 188000,
@@ -106,13 +149,13 @@ export const products: Product[] = [
     imageUrl: 'https://via.placeholder.com/300x400/95E1D3/FFFFFF?text=フシギバナ+PSA10',
     stock: 2,
     rarity: 'R',
-    condition: 'PSA10',
+    condition: 'MINT' as CardCondition,
     set: '基本セット',
     cardNumber: '15/102',
     language: 'Japanese',
     featured: true
-  },
-  {
+  }),
+  createProduct({
     id: 'poke-004',
     name: 'ピカチュウ 黄頃プロモ',
     price: 54000,
@@ -122,7 +165,7 @@ export const products: Product[] = [
     imageUrl: 'https://via.placeholder.com/300x400/FFE66D/FFFFFF?text=ピカチュウ',
     stock: 12,
     rarity: 'P',
-    condition: 'S',
+    condition: 'MINT' as CardCondition,
     set: 'プロモ',
     cardNumber: 'PROMO',
     language: 'Japanese',
@@ -138,7 +181,7 @@ export const products: Product[] = [
     imageUrl: 'https://via.placeholder.com/300x400/B19CD9/FFFFFF?text=ミュウツー',
     stock: 4,
     rarity: 'R',
-    condition: 'A',
+    condition: 'NEAR_MINT' as CardCondition,
     set: 'ネオジェネシス',
     cardNumber: '10/111',
     language: 'Japanese'
@@ -155,7 +198,7 @@ export const products: Product[] = [
     imageUrl: 'https://via.placeholder.com/300x400/FF6B6B/FFFFFF?text=ルフィ',
     stock: 15,
     rarity: 'SR',
-    condition: 'S',
+    condition: 'MINT' as CardCondition,
     set: 'ROMANCE DAWN',
     cardNumber: 'ST01-001',
     language: 'Japanese',
@@ -172,7 +215,7 @@ export const products: Product[] = [
     imageUrl: 'https://via.placeholder.com/300x400/4ECDC4/FFFFFF?text=ゾロ',
     stock: 20,
     rarity: 'R',
-    condition: 'S',
+    condition: 'MINT' as CardCondition,
     set: 'ROMANCE DAWN',
     cardNumber: 'ST01-013',
     language: 'Japanese'
@@ -187,7 +230,7 @@ export const products: Product[] = [
     imageUrl: 'https://via.placeholder.com/300x400/FF8E53/FFFFFF?text=エース+PSA9',
     stock: 3,
     rarity: 'SEC',
-    condition: 'PSA9',
+    condition: 'NEAR_MINT' as CardCondition,
     set: '頂上決戦',
     cardNumber: 'OP02-013',
     language: 'Japanese',
@@ -205,7 +248,7 @@ export const products: Product[] = [
     imageUrl: 'https://via.placeholder.com/300x400/A8E6CF/FFFFFF?text=悟空+UI',
     stock: 6,
     rarity: 'SEC',
-    condition: 'S',
+    condition: 'MINT' as CardCondition,
     set: '力の大会',
     cardNumber: 'BT05-132',
     language: 'Japanese',
@@ -222,7 +265,7 @@ export const products: Product[] = [
     imageUrl: 'https://via.placeholder.com/300x400/6C5CE7/FFFFFF?text=ベジータ+ブルー',
     stock: 10,
     rarity: 'SR',
-    condition: 'S',
+    condition: 'MINT' as CardCondition,
     set: '銀河パトロール',
     cardNumber: 'BT01-030',
     language: 'Japanese'
@@ -240,7 +283,7 @@ export const products: Product[] = [
     imageUrl: 'https://via.placeholder.com/300x400/74B9FF/FFFFFF?text=青眼白龍',
     stock: 2,
     rarity: 'UR',
-    condition: 'A',
+    condition: 'NEAR_MINT' as CardCondition,
     set: '青眼の白龍伝説',
     cardNumber: 'LOB-001',
     language: 'Japanese',
@@ -257,7 +300,7 @@ export const products: Product[] = [
     imageUrl: 'https://via.placeholder.com/300x400/A29BFE/FFFFFF?text=ブラマジ+PSA10',
     stock: 1,
     rarity: 'UR',
-    condition: 'PSA10',
+    condition: 'MINT' as CardCondition,
     set: '青眼の白龍伝説',
     cardNumber: 'LOB-005',
     language: 'Japanese',
@@ -275,7 +318,7 @@ export const products: Product[] = [
     imageUrl: 'https://via.placeholder.com/300x400/FDCB6E/FFFFFF?text=オメガモン',
     stock: 8,
     rarity: 'SEC',
-    condition: 'S',
+    condition: 'MINT' as CardCondition,
     set: 'リリース記念ブースター',
     cardNumber: 'BT1-084',
     language: 'Japanese',
@@ -291,7 +334,7 @@ export const products: Product[] = [
     imageUrl: 'https://via.placeholder.com/300x400/E17055/FFFFFF?text=アグモン',
     stock: 25,
     rarity: 'C',
-    condition: 'S',
+    condition: 'MINT' as CardCondition,
     set: 'リリース記念ブースター',
     cardNumber: 'BT1-010',
     language: 'Japanese'
@@ -308,7 +351,7 @@ export const products: Product[] = [
     imageUrl: 'https://via.placeholder.com/300x400/2D3436/FFFFFF?text=ギャラドス',
     stock: 6,
     rarity: 'R',
-    condition: 'B',
+    condition: 'GOOD' as CardCondition,
     set: 'ロケット団',
     cardNumber: '8/82',
     language: 'Japanese'
@@ -323,7 +366,7 @@ export const products: Product[] = [
     imageUrl: 'https://via.placeholder.com/300x400/E84393/FFFFFF?text=ナミ',
     stock: 18,
     rarity: 'R',
-    condition: 'S',
+    condition: 'MINT' as CardCondition,
     set: 'ROMANCE DAWN',
     cardNumber: 'ST01-007',
     language: 'Japanese'
@@ -338,7 +381,7 @@ export const products: Product[] = [
     imageUrl: 'https://via.placeholder.com/300x400/A29BFE/FFFFFF?text=フリーザ',
     stock: 7,
     rarity: 'SR',
-    condition: 'A',
+    condition: 'NEAR_MINT' as CardCondition,
     set: '銀河パトロール',
     cardNumber: 'BT01-080',
     language: 'Japanese'
@@ -355,7 +398,7 @@ export const products: Product[] = [
     imageUrl: 'https://via.placeholder.com/300x400/FFD700/000000?text=ピカチュウイラスト+PSA10',
     stock: 1,
     rarity: 'PR',
-    condition: 'PSA10',
+    condition: 'MINT' as CardCondition,
     set: 'プロモ',
     cardNumber: 'PROMO',
     language: 'Japanese',
@@ -372,13 +415,13 @@ export const products: Product[] = [
     imageUrl: 'https://via.placeholder.com/300x400/DC143C/FFFFFF?text=ルフィSEC+PSA10',
     stock: 2,
     rarity: 'SEC',
-    condition: 'PSA10',
+    condition: 'MINT' as CardCondition,
     set: 'ROMANCE DAWN',
     cardNumber: 'OP01-121',
     language: 'Japanese',
     featured: true
-  },
-  {
+  }),
+  createProduct({
     id: 'psa-003',
     name: 'ブラックマジシャンガール PSA9鑑定品',
     price: 85000,
@@ -388,12 +431,12 @@ export const products: Product[] = [
     imageUrl: 'https://via.placeholder.com/300x400/FF69B4/FFFFFF?text=ブラマジガール+PSA9',
     stock: 3,
     rarity: 'UR',
-    condition: 'PSA9',
+    condition: 'NEAR_MINT' as CardCondition,
     set: 'MAGICIAN\'S FORCE',
     cardNumber: 'MFC-000',
     language: 'Japanese',
     featured: true
-  }
+  })
 ];
 
 export const featuredProducts = products.filter(p => p.featured);

@@ -3,7 +3,7 @@
 import React from 'react';
 import { Grid, List, ChevronLeft, ChevronRight, ArrowUpDown, SortAsc, SortDesc } from 'lucide-react';
 import { useSearchStore } from '@/stores/searchStore';
-import { ProductCard } from './ProductCard';
+import ProductCard from './ProductCard';
 import { Button } from './Button';
 import { Select } from './Select';
 import { cn } from '@/lib/utils';
@@ -186,7 +186,6 @@ export function SearchResults({
             <Select
               value={filters.sort}
               onValueChange={handleSortChange}
-              className="w-48"
             >
               {sortOptions.map(option => (
                 <option key={option.value} value={option.value}>
@@ -241,24 +240,33 @@ export function SearchResults({
             key={product.id}
             product={{
               id: product.id,
+              sku: product.sku,
               name: product.nameEn,
+              nameEn: product.nameEn,
+              nameJa: product.nameJa,
               price: filters.currency === 'USD' ? product.priceUsd : product.priceJpy,
+              priceUsd: product.priceUsd,
+              priceJpy: product.priceJpy,
               description: product.description || '',
               category: product.category.nameEn,
+              categoryId: product.categoryId,
+              gameType: product.gameType,
               imageUrl: Array.isArray(product.images) && product.images.length > 0 
                 ? product.images[0] 
                 : '/placeholder-card.jpg',
               images: Array.isArray(product.images) ? product.images : [],
               stock: product.stockQuantity,
-              rarity: product.rarity as any,
-              condition: product.condition as any,
+              stockQuantity: product.stockQuantity,
+              rarity: product.rarity,
+              condition: product.condition,
               set: product.cardSet,
+              cardSet: product.cardSet,
               cardNumber: product.cardNumber,
+              psaGrade: product.psaGrade,
+              bgsGrade: product.bgsGrade,
               featured: product.featured,
+              active: product.active,
             }}
-            variant={viewMode === 'list' ? 'horizontal' : 'vertical'}
-            showQuickView
-            currency={filters.currency}
           />
         ))}
       </div>

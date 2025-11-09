@@ -73,7 +73,7 @@ async function main() {
   for (const product of sampleProducts) {
     const categoryId = categoryMap.get(product.category);
     const gameType = gameTypeMap[product.category] || GameType.OTHER;
-    const condition = conditionMap[product.condition] || CardCondition.NEAR_MINT;
+    const condition = product.condition ? (conditionMap[product.condition] || CardCondition.NEAR_MINT) : CardCondition.NEAR_MINT;
     
     let psaGrade = null;
     if (product.condition?.includes('PSA')) {

@@ -1,5 +1,8 @@
 import { GameType, CardCondition } from '@prisma/client';
 
+// Re-export types
+export { GameType, CardCondition };
+
 export interface Product {
   id: string;
   sku: string;

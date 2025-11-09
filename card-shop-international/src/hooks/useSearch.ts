@@ -165,7 +165,7 @@ export function useSearch() {
 // Hook for real-time search with debouncing
 export function useRealtimeSearch(delay: number = 300) {
   const { setQuery, search } = useSearchStore();
-  const timeoutRef = useRef<NodeJS.Timeout>();
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const performRealtimeSearch = useCallback((query: string) => {
     if (timeoutRef.current) {

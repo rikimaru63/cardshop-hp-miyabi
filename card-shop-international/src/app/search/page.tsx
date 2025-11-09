@@ -276,17 +276,5 @@ export default function SearchPage() {
   );
 }
 
-// Metadata for SEO
-export const metadata = {
-  title: 'Search Trading Cards - Card Shop International',
-  description: 'Search and filter thousands of trading cards. Find Pokemon, One Piece, Dragon Ball, Yu-Gi-Oh!, MTG, Digimon cards and more. Advanced filtering by condition, rarity, and price.',
-  openGraph: {
-    title: 'Search Trading Cards - Card Shop International',
-    description: 'Search and filter thousands of trading cards. Find Pokemon, One Piece, Dragon Ball, Yu-Gi-Oh!, MTG, Digimon cards and more.',
-    type: 'website',
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
-};
+// Note: Metadata cannot be exported from client components
+// Move metadata to a separate layout or server component if needed

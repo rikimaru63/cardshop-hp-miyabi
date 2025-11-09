@@ -15,9 +15,9 @@ import { getProductById, products } from '@/lib/data/products';
 import { formatPrice, getDiscountPercentage, cn } from '@/lib/utils';
 
 interface ProductPageProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
 // Generate static params for all products
@@ -27,8 +27,9 @@ export async function generateStaticParams() {
   }));
 }
 
-export default function ProductPage({ params }: ProductPageProps) {
-  const product = getProductById(params.id);
+export default async function ProductPage({ params }: ProductPageProps) {
+  const { id } = await params;
+  const product = getProductById(id);
 
   if (!product) {
     notFound();

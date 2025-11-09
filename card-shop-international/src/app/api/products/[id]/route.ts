@@ -4,12 +4,13 @@ import { Decimal } from '@prisma/client/runtime/library';
 
 export async function GET(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const product = await prisma.product.findUnique({
       where: {
-        id: params.id,
+        id: id,
         active: true
       },
       include: {
@@ -36,9 +37,10 @@ export async function GET(
 
 export async function PATCH(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const body = await request.json();
     const updateData: any = {};
 
@@ -58,7 +60,7 @@ export async function PATCH(
     });
 
     const product = await prisma.product.update({
-      where: { id: params.id },
+      where: { id: id },
       data: updateData,
       include: {
         category: true
@@ -77,11 +79,12 @@ export async function PATCH(
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     await prisma.product.update({
-      where: { id: params.id },
+      where: { id: id },
       data: { active: false }
     });
 
