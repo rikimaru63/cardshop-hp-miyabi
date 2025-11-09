@@ -31,7 +31,7 @@ export default function ProductCard({ product, className }: ProductCardProps) {
   const isBGSGraded = product.bgsGrade !== undefined;
 
   return (
-    <div className={cn("border border-gray-200 bg-white hover:shadow-md transition-shadow group w-[165px]", className)}>
+    <div className={cn("border border-gray-200 bg-white hover:shadow-xl hover:scale-105 transition-all duration-300 group w-[165px] rounded-xl overflow-hidden backdrop-blur-sm bg-white/95", className)}>
       <Link href={`/products/${product.id}`} className="block">
         {/* 商品画像 */}
         <div className="relative aspect-square bg-white border-b border-gray-200 overflow-hidden">
@@ -45,22 +45,22 @@ export default function ProductCard({ product, className }: ProductCardProps) {
           {/* バッジ */}
           <div className="absolute top-1 left-1 flex flex-col gap-0.5">
             {product.isNew && (
-              <span className="inline-block px-1.5 py-0.5 text-[10px] font-bold text-white bg-red-500 rounded">
+              <span className="inline-block px-1.5 py-0.5 text-[10px] font-bold text-white bg-gradient-to-r from-red-500 to-red-600 rounded-lg shadow-md animate-pulse">
                 NEW
               </span>
             )}
             {isPSAGraded && (
-              <span className="inline-block px-1.5 py-0.5 text-[10px] font-bold text-white bg-blue-600 rounded">
+              <span className="inline-block px-1.5 py-0.5 text-[10px] font-bold text-white bg-gradient-to-r from-blue-600 to-blue-700 rounded-lg shadow-md">
                 PSA{product.psaGrade}
               </span>
             )}
             {isBGSGraded && (
-              <span className="inline-block px-1.5 py-0.5 text-[10px] font-bold text-white bg-purple-600 rounded">
+              <span className="inline-block px-1.5 py-0.5 text-[10px] font-bold text-white bg-gradient-to-r from-purple-600 to-purple-700 rounded-lg shadow-md">
                 BGS{product.bgsGrade}
               </span>
             )}
             {product.onSale && (
-              <span className="inline-block px-1.5 py-0.5 text-[10px] font-bold text-white bg-orange-500 rounded">
+              <span className="inline-block px-1.5 py-0.5 text-[10px] font-bold text-white bg-gradient-to-r from-red-500 to-orange-500 rounded-lg shadow-md animate-pulse">
                 SALE
               </span>
             )}
@@ -121,11 +121,11 @@ export default function ProductCard({ product, className }: ProductCardProps) {
           {/* 在庫表示 */}
           <div className="text-[10px] mt-1">
             {isOutOfStock ? (
-              <span className="text-red-600">在庫切れ</span>
+              <span className="text-red-600 font-medium">在庫切れ</span>
             ) : product.stock <= 3 ? (
-              <span className="text-orange-600">残り{product.stock}点</span>
+              <span className="text-orange-600 font-medium animate-pulse">残り{product.stock}点</span>
             ) : (
-              <span className="text-green-600">在庫あり</span>
+              <span className="text-green-600 font-medium">在庫あり</span>
             )}
           </div>
 
@@ -134,10 +134,10 @@ export default function ProductCard({ product, className }: ProductCardProps) {
             onClick={handleAddToCart}
             disabled={isOutOfStock}
             className={cn(
-              "w-full py-1.5 px-2 text-[10px] font-medium rounded mt-2 transition-colors",
+              "w-full py-1.5 px-2 text-[10px] font-medium rounded-lg mt-2 transition-all duration-200 transform shadow-md",
               isOutOfStock
                 ? "bg-gray-100 text-gray-400 cursor-not-allowed"
-                : "bg-orange-500 text-white hover:bg-orange-600"
+                : "bg-gradient-to-r from-orange-500 to-orange-600 text-white hover:from-orange-600 hover:to-orange-700 hover:scale-105 active:scale-95 hover:shadow-lg"
             )}
           >
             {isOutOfStock ? "在庫切れ" : "カートに入れる"}

@@ -73,7 +73,7 @@ export default function HeroCarousel() {
   };
 
   return (
-    <div className="relative w-full max-w-[980px] h-[350px] mx-auto overflow-hidden rounded-lg bg-gray-100">
+    <div className="relative w-full max-w-[980px] h-[350px] mx-auto overflow-hidden rounded-xl bg-gradient-to-br from-gray-100 to-gray-200 shadow-2xl">
       {/* Slides */}
       <div 
         className="flex h-full transition-transform duration-500 ease-in-out"
@@ -97,7 +97,7 @@ export default function HeroCarousel() {
                 <p className="text-lg mb-6 opacity-90">{slide.subtitle}</p>
                 <Link
                   href={slide.link}
-                  className="inline-block px-8 py-3 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg transition-colors"
+                  className="inline-block px-8 py-3 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-semibold rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-xl transform active:scale-95 shadow-lg"
                 >
                   {slide.buttonText}
                 </Link>
@@ -110,7 +110,7 @@ export default function HeroCarousel() {
       {/* Navigation Arrows */}
       <button
         onClick={goToPrevious}
-        className="absolute left-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/20 hover:bg-black/40 text-white transition-colors"
+        className="absolute left-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/30 hover:bg-black/60 text-white transition-all duration-300 hover:scale-110 hover:shadow-lg backdrop-blur-sm"
         aria-label="前のスライド"
       >
         <ChevronLeft className="h-6 w-6" />
@@ -118,7 +118,7 @@ export default function HeroCarousel() {
       
       <button
         onClick={goToNext}
-        className="absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/20 hover:bg-black/40 text-white transition-colors"
+        className="absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/30 hover:bg-black/60 text-white transition-all duration-300 hover:scale-110 hover:shadow-lg backdrop-blur-sm"
         aria-label="次のスライド"
       >
         <ChevronRight className="h-6 w-6" />
@@ -130,10 +130,10 @@ export default function HeroCarousel() {
           <button
             key={index}
             onClick={() => goToSlide(index)}
-            className={`w-3 h-3 rounded-full transition-colors ${
+            className={`w-3 h-3 rounded-full transition-all duration-300 transform ${
               index === currentSlide 
-                ? 'bg-white' 
-                : 'bg-white/50 hover:bg-white/75'
+                ? 'bg-white scale-125 shadow-lg' 
+                : 'bg-white/50 hover:bg-white/75 hover:scale-110'
             }`}
             aria-label={`スライド ${index + 1} へ`}
           />

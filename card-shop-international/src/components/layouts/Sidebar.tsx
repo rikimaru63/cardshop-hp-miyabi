@@ -100,7 +100,7 @@ export default function Sidebar() {
   };
 
   return (
-    <aside className="w-60 bg-white border-r border-gray-200 min-h-screen sticky top-[89px] h-[calc(100vh-89px)] overflow-y-auto">
+    <aside className="w-60 bg-gradient-to-b from-white to-gray-50 border-r border-gray-200 min-h-screen sticky top-[89px] h-[calc(100vh-89px)] overflow-y-auto shadow-lg backdrop-blur-sm">
       <div className="p-3">
         {/* ユーザーアクション */}
         <div className="mb-6 pb-4 border-b border-gray-200">
@@ -108,26 +108,26 @@ export default function Sidebar() {
           <div className="space-y-2">
             <Link
               href="/login"
-              className="w-full flex items-center gap-2 px-3 py-2 text-sm text-white bg-blue-600 hover:bg-blue-700 rounded-md transition-colors"
+              className="w-full flex items-center gap-2 px-3 py-2 text-sm text-white bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 rounded-lg transition-all duration-200 hover:shadow-lg hover:scale-105 transform"
             >
               <LogIn className="h-4 w-4" />
               ログイン
             </Link>
             <Link
               href="/register"
-              className="w-full flex items-center gap-2 px-3 py-2 text-sm text-blue-600 border border-blue-600 hover:bg-blue-50 rounded-md transition-colors"
+              className="w-full flex items-center gap-2 px-3 py-2 text-sm text-blue-600 border border-blue-600 hover:bg-gradient-to-r hover:from-blue-50 hover:to-blue-100 rounded-lg transition-all duration-200 hover:shadow-md hover:scale-105 transform"
             >
               <UserPlus className="h-4 w-4" />
               新規登録
             </Link>
             <button
               onClick={openCart}
-              className="w-full flex items-center gap-2 px-3 py-2 text-sm text-orange-600 border border-orange-600 hover:bg-orange-50 rounded-md transition-colors relative"
+              className="w-full flex items-center gap-2 px-3 py-2 text-sm text-orange-600 border border-orange-600 hover:bg-gradient-to-r hover:from-orange-50 hover:to-orange-100 rounded-lg transition-all duration-200 hover:shadow-md hover:scale-105 transform relative"
             >
               <ShoppingCart className="h-4 w-4" />
               カート
               {totalItems > 0 && (
-                <span className="ml-auto bg-red-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold">
+                <span className="ml-auto bg-gradient-to-r from-red-500 to-red-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold shadow-md animate-pulse">
                   {totalItems}
                 </span>
               )}
@@ -143,7 +143,7 @@ export default function Sidebar() {
               <div key={category.id}>
                 <button
                   onClick={() => toggleCategory(category.id)}
-                  className="w-full flex items-center justify-between px-2 py-2 text-sm text-gray-900 hover:bg-gray-50 rounded-md transition-colors"
+                  className="w-full flex items-center justify-between px-2 py-2 text-sm text-gray-900 hover:bg-gradient-to-r hover:from-gray-50 hover:to-gray-100 rounded-lg transition-all duration-200 hover:shadow-md hover:scale-105 transform"
                 >
                   <span className="font-medium">{category.name}</span>
                   {category.subcategories && (
@@ -160,7 +160,7 @@ export default function Sidebar() {
                       <Link
                         key={sub.id}
                         href={`/category/${category.slug}/${sub.slug}`}
-                        className="block px-2 py-1.5 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-md transition-colors"
+                        className="block px-2 py-1.5 text-sm text-gray-600 hover:text-blue-600 hover:bg-gradient-to-r hover:from-blue-50 hover:to-blue-100 rounded-lg transition-all duration-200 hover:shadow-sm hover:scale-105 transform"
                       >
                         {sub.name}
                       </Link>
@@ -180,7 +180,7 @@ export default function Sidebar() {
               <Link
                 key={category.id}
                 href={`/category/${category.slug}`}
-                className="block px-2 py-2 text-sm text-gray-900 hover:bg-gray-50 rounded-md transition-colors"
+                className="block px-2 py-2 text-sm text-gray-900 hover:text-blue-600 hover:bg-gradient-to-r hover:from-gray-50 hover:to-gray-100 rounded-lg transition-all duration-200 hover:shadow-md hover:scale-105 transform"
               >
                 {category.name}
               </Link>
