@@ -170,8 +170,8 @@ export const products: Product[] = [
     cardNumber: 'PROMO',
     language: 'Japanese',
     isNew: true
-  },
-  {
+  }),
+  createProduct({
     id: 'poke-005',
     name: 'ミュウツー ネオジェネシス',
     price: 78000,
@@ -185,10 +185,10 @@ export const products: Product[] = [
     set: 'ネオジェネシス',
     cardNumber: '10/111',
     language: 'Japanese'
-  },
+  }),
 
   // ワンピースカード
-  {
+  createProduct({
     id: 'op-001',
     name: 'モンキー・D・ルフィ リーダー',
     price: 18000,
@@ -204,8 +204,8 @@ export const products: Product[] = [
     language: 'Japanese',
     featured: true,
     isNew: true
-  },
-  {
+  }),
+  createProduct({
     id: 'op-002',
     name: 'ロロノア・ゾロ',
     price: 10200,
@@ -219,8 +219,8 @@ export const products: Product[] = [
     set: 'ROMANCE DAWN',
     cardNumber: 'ST01-013',
     language: 'Japanese'
-  },
-  {
+  }),
+  createProduct({
     id: 'op-003',
     name: 'ポートガス・D・エース PSA9鑑定品',
     price: 38400,
@@ -235,10 +235,10 @@ export const products: Product[] = [
     cardNumber: 'OP02-013',
     language: 'Japanese',
     featured: true
-  },
+  }),
 
   // ドラゴンボールカード
-  {
+  createProduct({
     id: 'db-001',
     name: '孫悟空 身勝手の極意',
     price: 33600,
@@ -254,8 +254,8 @@ export const products: Product[] = [
     language: 'Japanese',
     featured: true,
     isNew: true
-  },
-  {
+  }),
+  createProduct({
     id: 'db-002',
     name: 'ベジータ スーパーサイヤ人ブルー',
     price: 21600,
@@ -269,10 +269,10 @@ export const products: Product[] = [
     set: '銀河パトロール',
     cardNumber: 'BT01-030',
     language: 'Japanese'
-  },
+  }),
 
   // 遊戯王カード
-  {
+  createProduct({
     id: 'ygo-001',
     name: '青眼の白龍',
     price: 216000,
@@ -289,8 +289,8 @@ export const products: Product[] = [
     language: 'Japanese',
     featured: true,
     onSale: true
-  },
-  {
+  }),
+  createProduct({
     id: 'ygo-002',
     name: 'ブラックマジシャン PSA10鑑定品',
     price: 114000,
@@ -305,10 +305,10 @@ export const products: Product[] = [
     cardNumber: 'LOB-005',
     language: 'Japanese',
     featured: true
-  },
+  }),
 
   // デジモンカード
-  {
+  createProduct({
     id: 'digi-001',
     name: 'オメガモン',
     price: 26400,
@@ -323,8 +323,8 @@ export const products: Product[] = [
     cardNumber: 'BT1-084',
     language: 'Japanese',
     isNew: true
-  },
-  {
+  }),
+  createProduct({
     id: 'digi-002',
     name: 'アグモン',
     price: 4200,
@@ -338,10 +338,10 @@ export const products: Product[] = [
     set: 'リリース記念ブースター',
     cardNumber: 'BT1-010',
     language: 'Japanese'
-  },
+  }),
 
   // その他の商品
-  {
+  createProduct({
     id: 'poke-006',
     name: 'ギャラドス ロケット団',
     price: 45600,
@@ -355,8 +355,8 @@ export const products: Product[] = [
     set: 'ロケット団',
     cardNumber: '8/82',
     language: 'Japanese'
-  },
-  {
+  }),
+  createProduct({
     id: 'op-004',
     name: 'ナミ',
     price: 7800,
@@ -370,8 +370,8 @@ export const products: Product[] = [
     set: 'ROMANCE DAWN',
     cardNumber: 'ST01-007',
     language: 'Japanese'
-  },
-  {
+  }),
+  createProduct({
     id: 'db-003',
     name: 'フリーザ 最終形態',
     price: 22800,
@@ -385,10 +385,10 @@ export const products: Product[] = [
     set: '銀河パトロール',
     cardNumber: 'BT01-080',
     language: 'Japanese'
-  },
+  }),
   
   // PSA鑑定済み特別商品
-  {
+  createProduct({
     id: 'psa-001',
     name: 'ピカチュウ イラストレーター PSA10鑑定品',
     price: 5800000,
@@ -404,8 +404,8 @@ export const products: Product[] = [
     language: 'Japanese',
     featured: true,
     isNew: true
-  },
-  {
+  }),
+  createProduct({
     id: 'psa-002',
     name: 'ルフィ SEC パラレル PSA10鑑定品',
     price: 128000,
