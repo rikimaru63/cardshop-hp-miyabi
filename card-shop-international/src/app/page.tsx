@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import ProductCard from '@/components/ui/ProductCard';
+import HeroCarousel from '@/components/ui/HeroCarousel';
 import { featuredProducts, newProducts, categories, products } from '@/lib/data/products';
 
 export default function Home() {
@@ -10,24 +11,31 @@ export default function Home() {
 
   return (
     <div className="">
-      {/* ヒーローバナー */}
-      <section className="bg-white border-b border-gray-200">
-        <div className="relative h-48 md:h-64 bg-gradient-to-r from-red-600 to-orange-500">
-          <div className="absolute inset-0 flex items-center justify-center text-white">
-            <div className="text-center">
-              <h1 className="text-2xl md:text-4xl font-bold mb-2">トレーディングカード専門店</h1>
-              <p className="text-base md:text-lg">PSA鑑定済みカード多数取り扱い中</p>
-            </div>
-          </div>
+      {/* ヒーローカルーセル */}
+      <section className="bg-white border-b border-gray-200 py-6">
+        <div className="max-w-7xl mx-auto px-4">
+          <HeroCarousel />
         </div>
       </section>
 
-      {/* お知らせバー */}
-      <section className="bg-yellow-50 border-b border-yellow-200">
-        <div className="max-w-7xl mx-auto px-4 py-2">
-          <div className="flex items-center gap-2">
-            <span className="bg-red-600 text-white text-xs px-2 py-1 rounded font-bold">お知らせ</span>
-            <span className="text-sm text-gray-800">【期間限定】全品送料無料キャンペーン実施中！（1月31日まで）</span>
+      {/* お知らせ・ニュースセクション（ブルー） */}
+      <section className="bg-blue-50 border-b border-blue-200">
+        <div className="max-w-7xl mx-auto px-4 py-4">
+          <div className="bg-blue-600 text-white rounded-lg p-4">
+            <div className="flex items-center gap-3 mb-3">
+              <span className="text-2xl">📢</span>
+              <h2 className="text-lg font-bold">重要なお知らせ</h2>
+            </div>
+            <div className="space-y-2 text-sm">
+              <div className="flex items-start gap-2">
+                <span className="bg-red-500 text-white px-2 py-1 rounded text-xs font-bold">重要</span>
+                <span>【期間限定】全品送料無料キャンペーン実施中！（1月31日まで）</span>
+              </div>
+              <div className="flex items-start gap-2">
+                <span className="bg-green-500 text-white px-2 py-1 rounded text-xs font-bold">新着</span>
+                <span>PSA鑑定済みカードの取り扱いを大幅拡大しました</span>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -99,10 +107,15 @@ export default function Home() {
               </Link>
             </div>
             
-            <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
-              {featuredProducts.slice(0, 12).map((product) => (
-                <ProductCard key={product.id} product={product} />
-              ))}
+            {/* 水平スクロール（5-6カード） */}
+            <div className="overflow-x-auto">
+              <div className="flex gap-3 pb-2" style={{ width: 'max-content' }}>
+                {featuredProducts.slice(0, 6).map((product) => (
+                  <div key={product.id} className="w-[160px] flex-shrink-0">
+                    <ProductCard product={product} />
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -125,8 +138,9 @@ export default function Home() {
               </Link>
             </div>
             
-            <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
-              {newProducts.slice(0, 12).map((product) => (
+            {/* 4-5列グリッドレイアウト */}
+            <div className="grid grid-cols-4 lg:grid-cols-5 gap-3">
+              {newProducts.slice(0, 10).map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}
             </div>
@@ -151,8 +165,9 @@ export default function Home() {
               </Link>
             </div>
             
-            <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
-              {boxProducts.map((product) => (
+            {/* 4-5列グリッドレイアウト */}
+            <div className="grid grid-cols-4 lg:grid-cols-5 gap-3">
+              {boxProducts.slice(0, 10).map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}
             </div>
@@ -178,8 +193,9 @@ export default function Home() {
               </Link>
             </div>
             
-            <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
-              {psaProducts.map((product) => (
+            {/* 4-5列グリッドレイアウト */}
+            <div className="grid grid-cols-4 lg:grid-cols-5 gap-3">
+              {psaProducts.slice(0, 10).map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}
             </div>

@@ -28,6 +28,11 @@ export default function Header() {
 
   return (
     <header className="bg-white sticky top-0 z-50 shadow-sm">
+      {/* Tagline Bar - 24px height */}
+      <div className="bg-blue-600 text-white text-xs h-6 flex items-center justify-center">
+        <span>トレーディングカード専門店 - 全国送料無料キャンペーン実施中！</span>
+      </div>
+      
       {/* Top Bar */}
       <div className="bg-gray-900 text-white text-xs py-1">
         <div className="container mx-auto px-4 flex items-center justify-between">
@@ -58,17 +63,17 @@ export default function Header() {
             <Menu className="h-6 w-6" />
           </button>
 
-          {/* Logo */}
+          {/* Logo - 150x40px */}
           <Link href="/" className="flex items-center">
-            <div className="text-2xl font-bold">
+            <div className="w-[150px] h-[40px] flex items-center text-xl font-bold">
               <span className="text-red-600">シンソク</span>
               <span className="text-gray-900 text-sm ml-2">CARD SHOP</span>
             </div>
           </Link>
 
-          {/* Search Bar */}
-          <div className="hidden lg:flex flex-1 max-w-xl mx-8">
-            <form onSubmit={handleSearch} className="w-full flex">
+          {/* Search Bar - 300-350px width */}
+          <div className="hidden lg:flex mx-8">
+            <form onSubmit={handleSearch} className="w-[325px] flex">
               <input
                 type="text"
                 value={searchQuery}
@@ -83,6 +88,34 @@ export default function Header() {
                 <Search className="h-4 w-4" />
               </button>
             </form>
+          </div>
+
+          {/* Navigation Buttons */}
+          <div className="hidden lg:flex items-center space-x-4 ml-8">
+            <Link
+              href="/category"
+              className="px-3 py-2 text-sm text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded transition-colors"
+            >
+              カテゴリ
+            </Link>
+            <Link
+              href="/guide"
+              className="px-3 py-2 text-sm text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded transition-colors"
+            >
+              ご利用案内
+            </Link>
+            <Link
+              href="/status"
+              className="px-3 py-2 text-sm text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded transition-colors"
+            >
+              状態表記
+            </Link>
+            <Link
+              href="/buyback"
+              className="px-3 py-2 text-sm text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded transition-colors"
+            >
+              宅配買取
+            </Link>
           </div>
 
           {/* Right Actions */}

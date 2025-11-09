@@ -2,7 +2,8 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-import { ChevronDown, ChevronRight } from 'lucide-react';
+import { ChevronDown, ChevronRight, LogIn, UserPlus, ShoppingCart } from 'lucide-react';
+import { useCartStore } from '@/stores/cartStore';
 
 interface CategoryItem {
   id: string;
@@ -87,6 +88,8 @@ const otherCategories = [
 
 export default function Sidebar() {
   const [expandedCategories, setExpandedCategories] = useState<string[]>(['pokemon']);
+  const { getTotalItems, openCart } = useCartStore();
+  const totalItems = getTotalItems();
 
   const toggleCategory = (categoryId: string) => {
     setExpandedCategories((prev) =>
@@ -97,8 +100,41 @@ export default function Sidebar() {
   };
 
   return (
-    <aside className="w-60 bg-white border-r border-gray-200 min-h-screen sticky top-[65px] h-[calc(100vh-65px)] overflow-y-auto">
+    <aside className="w-60 bg-white border-r border-gray-200 min-h-screen sticky top-[89px] h-[calc(100vh-89px)] overflow-y-auto">
       <div className="p-3">
+        {/* ユーザーアクション */}
+        <div className="mb-6 pb-4 border-b border-gray-200">
+          <h3 className="text-sm font-bold text-gray-700 uppercase mb-3 px-2">ユーザー</h3>
+          <div className="space-y-2">
+            <Link
+              href="/login"
+              className="w-full flex items-center gap-2 px-3 py-2 text-sm text-white bg-blue-600 hover:bg-blue-700 rounded-md transition-colors"
+            >
+              <LogIn className="h-4 w-4" />
+              ログイン
+            </Link>
+            <Link
+              href="/register"
+              className="w-full flex items-center gap-2 px-3 py-2 text-sm text-blue-600 border border-blue-600 hover:bg-blue-50 rounded-md transition-colors"
+            >
+              <UserPlus className="h-4 w-4" />
+              新規登録
+            </Link>
+            <button
+              onClick={openCart}
+              className="w-full flex items-center gap-2 px-3 py-2 text-sm text-orange-600 border border-orange-600 hover:bg-orange-50 rounded-md transition-colors relative"
+            >
+              <ShoppingCart className="h-4 w-4" />
+              カート
+              {totalItems > 0 && (
+                <span className="ml-auto bg-red-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold">
+                  {totalItems}
+                </span>
+              )}
+            </button>
+          </div>
+        </div>
+
         {/* メインカテゴリ */}
         <div className="mb-6">
           <h3 className="text-sm font-bold text-gray-700 uppercase mb-3 px-2">カテゴリー</h3>

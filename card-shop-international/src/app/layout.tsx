@@ -27,7 +27,7 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <body className={`${inter.className} ${notoSansJP.className}`}>
-        <div className="min-h-screen bg-gray-50">
+        <div className="min-h-screen bg-gray-50 pb-20">
           <Header />
           <div className="flex max-w-[1600px] mx-auto">
             <div className="w-60 flex-shrink-0 hidden lg:block">

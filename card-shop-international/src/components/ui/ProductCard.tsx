@@ -31,7 +31,7 @@ export default function ProductCard({ product, className }: ProductCardProps) {
   const isBGSGraded = product.bgsGrade !== undefined;
 
   return (
-    <div className={cn("border border-gray-200 bg-white hover:shadow-md transition-shadow group", className)}>
+    <div className={cn("border border-gray-200 bg-white hover:shadow-md transition-shadow group w-[165px]", className)}>
       <Link href={`/products/${product.id}`} className="block">
         {/* 商品画像 */}
         <div className="relative aspect-square bg-white border-b border-gray-200 overflow-hidden">
