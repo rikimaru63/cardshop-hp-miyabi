@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { Inter, Noto_Sans_JP } from 'next/font/google'
 import '@/styles/globals.css'
 import Header from '@/components/layouts/Header'
-import Navigation from '@/components/layouts/Navigation'
+import Sidebar from '@/components/layouts/Sidebar'
 import Footer from '@/components/layouts/Footer'
 import CartDrawer from '@/components/CartDrawer'
 
@@ -14,8 +14,9 @@ const notoSansJP = Noto_Sans_JP({
 })
 
 export const metadata: Metadata = {
-  title: 'CardShop-Shinsoku - 新速トレーディングカード専門店',
+  title: 'シンソクカードショップ - トレーディングカード専門店',
   description: 'ポケモン、ワンピース、ドラゴンボールなどの日本のトレーディングカード専門店。PSA鑑定済みカードも豊富に取り揃えています。',
+  keywords: 'ポケモンカード, ワンピースカード, ドラゴンボールカード, 遊戯王, デジモンカード, PSA鑑定, BGS鑑定, トレカ',
 }
 
 export default function RootLayout({
@@ -26,12 +27,16 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <body className={`${inter.className} ${notoSansJP.className}`}>
-        <div className="min-h-screen bg-white">
+        <div className="min-h-screen bg-gray-50">
           <Header />
-          <Navigation />
-          <main className="min-h-screen">
-            {children}
-          </main>
+          <div className="flex">
+            <div className="hidden lg:block">
+              <Sidebar />
+            </div>
+            <main className="flex-1 min-h-screen bg-white">
+              {children}
+            </main>
+          </div>
           <Footer />
           <CartDrawer />
         </div>

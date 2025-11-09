@@ -27,79 +27,103 @@ export default function ProductCard({ product, className }: ProductCardProps) {
   };
 
   const isOutOfStock = product.stock <= 0;
-  const isPSAGraded = product.condition?.startsWith('PSA');
+  const isPSAGraded = product.psaGrade !== undefined;
+  const isBGSGraded = product.bgsGrade !== undefined;
 
   return (
-    <div className={cn("card-minimal", className)}>
+    <div className={cn("border border-gray-200 bg-white hover:shadow-lg transition-shadow", className)}>
       <Link href={`/products/${product.id}`} className="block">
         {/* 商品画像 */}
-        <div className="relative aspect-square bg-gray-50">
+        <div className="relative aspect-[3/4] bg-gray-50 border-b border-gray-200">
           <Image
             src={product.imageUrl}
             alt={product.name}
             fill
-            className="object-cover"
+            className="object-contain p-2"
           />
           
           {/* バッジ */}
-          {(product.isNew || isPSAGraded) && (
-            <div className="absolute top-1 left-1">
-              {product.isNew && (
-                <span className="condition-badge bg-green-500 text-white">
-                  NEW
-                </span>
-              )}
-              {isPSAGraded && (
-                <span className="psa-badge">
-                  {product.condition}
-                </span>
-              )}
+          <div className="absolute top-2 left-2 flex flex-col gap-1">
+            {product.isNew && (
+              <span className="inline-block px-2 py-1 text-xs font-bold text-white bg-red-500 rounded">
+                NEW
+              </span>
+            )}
+            {isPSAGraded && (
+              <span className="inline-block px-2 py-1 text-xs font-bold text-white bg-blue-600 rounded">
+                PSA {product.psaGrade}
+              </span>
+            )}
+            {isBGSGraded && (
+              <span className="inline-block px-2 py-1 text-xs font-bold text-white bg-purple-600 rounded">
+                BGS {product.bgsGrade}
+              </span>
+            )}
+            {product.onSale && (
+              <span className="inline-block px-2 py-1 text-xs font-bold text-white bg-orange-500 rounded">
+                SALE
+              </span>
+            )}
+          </div>
+
+          {/* 在庫状態 */}
+          {isOutOfStock && (
+            <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
+              <span className="text-white font-bold text-lg">SOLD OUT</span>
             </div>
           )}
         </div>
 
         {/* 商品情報 */}
-        <div className="p-3 space-y-2">
+        <div className="p-3">
+          {/* カテゴリー */}
+          <div className="text-xs text-gray-500 mb-1">
+            {product.category}
+            {product.set && ` / ${product.set}`}
+          </div>
+
           {/* 商品名 */}
-          <h3 className="text-sm font-medium text-black line-clamp-2 min-h-[2.5rem]">
+          <h3 className="text-sm font-medium text-gray-900 line-clamp-2 min-h-[2.5rem] mb-2">
             {product.name}
           </h3>
 
-          {/* 価格 */}
-          <div className="space-y-1">
-            <div className="price-yen text-base">
-              {formatYenPrice(product.price)}
-              {product.originalPrice && (
-                <span className="text-sm text-gray-500 line-through ml-2">
-                  {formatYenPrice(product.originalPrice)}
-                </span>
-              )}
-            </div>
-            <div className="text-xs text-gray-600">税込</div>
-          </div>
-
-          {/* 状態とレアリティ */}
-          <div className="flex items-center justify-between text-xs">
-            {product.condition && !isPSAGraded && (
-              <span className="condition-badge">
-                状態: {product.condition}
-              </span>
-            )}
+          {/* レアリティと状態 */}
+          <div className="flex items-center gap-2 mb-2">
             {product.rarity && (
-              <span className="condition-badge">
+              <span className="inline-block px-2 py-0.5 text-xs bg-gray-100 text-gray-700 rounded">
                 {product.rarity}
               </span>
             )}
+            {product.condition && !isPSAGraded && !isBGSGraded && (
+              <span className="inline-block px-2 py-0.5 text-xs bg-gray-100 text-gray-700 rounded">
+                {product.condition}
+              </span>
+            )}
           </div>
 
-          {/* 在庫数 */}
-          <div className="stock-info">
+          {/* 価格 */}
+          <div className="mb-3">
+            {product.originalPrice && product.originalPrice > product.price && (
+              <div className="text-xs text-gray-500 line-through">
+                {formatYenPrice(product.originalPrice)}
+              </div>
+            )}
+            <div className="flex items-baseline gap-1">
+              <span className="text-lg font-bold text-red-600">
+                {formatYenPrice(product.price)}
+              </span>
+              <span className="text-xs text-gray-500">（税込）</span>
+            </div>
+          </div>
+
+          {/* 在庫表示 */}
+          <div className="text-xs mb-3">
             {isOutOfStock ? (
-              <span className="text-red-600">在庫切れ</span>
-            ) : product.stock <= 5 ? (
-              <span className="text-orange-600">残り{product.stock}点</span>
+              <span className="text-red-600 font-medium">在庫切れ</span>
+            ) : product.stock <= 3 ? (
+              <span className="text-orange-600 font-medium">残り{product.stock}点</span>
             ) : (
-              <span className="text-green-600">在庫あり</span>
+              <span className="text-green-600 font-medium">在庫あり</span>
             )}
           </div>
 
@@ -108,11 +132,12 @@ export default function ProductCard({ product, className }: ProductCardProps) {
             onClick={handleAddToCart}
             disabled={isOutOfStock}
             className={cn(
-              "w-full flex items-center justify-center gap-2 button-minimal",
-              isOutOfStock && "opacity-50 cursor-not-allowed"
+              "w-full py-2 px-3 text-xs font-medium rounded transition-colors",
+              isOutOfStock
+                ? "bg-gray-100 text-gray-400 cursor-not-allowed"
+                : "bg-gray-800 text-white hover:bg-gray-700"
             )}
           >
-            <ShoppingCart className="h-4 w-4" />
             {isOutOfStock ? "在庫切れ" : "カートに入れる"}
           </button>
         </div>
