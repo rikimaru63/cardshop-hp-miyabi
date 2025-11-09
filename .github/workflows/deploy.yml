@@ -38,7 +38,7 @@ jobs:
       - name: Install dependencies
         run: |
           cd card-shop-international
-          npm ci
+          npm ci --legacy-peer-deps
 
       - name: Build with Next.js
         run: |
