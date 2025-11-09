@@ -6,7 +6,8 @@ const nextConfig = {
     unoptimized: true,
   },
   output: 'export',
-  basePath: '/cardshop-hp-miyabi',
+  basePath: '',
+  assetPrefix: '',
 }
 
 export default nextConfig
