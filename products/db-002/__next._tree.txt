@@ -1,0 +1,12 @@
+1:"$Sreact.fragment"
+2:I[28777,["/_next/static/chunks/5c85e97f38a596ea.js","/_next/static/chunks/42669cce6bb2d736.js"],"ViewportBoundary"]
+4:I[28777,["/_next/static/chunks/5c85e97f38a596ea.js","/_next/static/chunks/42669cce6bb2d736.js"],"MetadataBoundary"]
+5:"$Sreact.suspense"
+:HL["/_next/static/chunks/4e20891f2fd03463.css","style"]
+:HL["/_next/static/chunks/ecd4f06c82c353f8.css","style"]
+:HL["/_next/static/chunks/1b01a496fa49405b.css","style"]
+:HL["/_next/static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/_next/static/media/ad9c66e761fed85a-s.p.2adee7ab.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+0:{"buildId":"o0-iBPAJqrweuCiPwqZZf","tree":{"name":"","paramType":null,"paramKey":"","hasRuntimePrefetch":false,"slots":{"children":{"name":"products","paramType":null,"paramKey":"products","hasRuntimePrefetch":false,"slots":{"children":{"name":"id","paramType":"d","paramKey":"db-002","hasRuntimePrefetch":false,"slots":{"children":{"name":"__PAGE__","paramType":null,"paramKey":"__PAGE__","hasRuntimePrefetch":false,"slots":null,"isRootLayout":false}},"isRootLayout":false}},"isRootLayout":false}},"isRootLayout":true},"head":["$","$1","h",{"children":[null,["$","$L2",null,{"children":"$@3"}],["$","div",null,{"hidden":true,"children":["$","$L4",null,{"children":["$","$5",null,{"name":"Next.Metadata","children":"$@6"}]}]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}],"isHeadPartial":false,"staleTime":300}
+3:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
+6:[["$","title","0",{"children":"シンソクカードショップ - トレーディングカード専門店"}],["$","meta","1",{"name":"description","content":"ポケモン、ワンピース、ドラゴンボールなどの日本のトレーディングカード専門店。PSA鑑定済みカードも豊富に取り揃えています。"}],["$","meta","2",{"name":"keywords","content":"ポケモンカード, ワンピースカード, ドラゴンボールカード, 遊戯王, デジモンカード, PSA鑑定, BGS鑑定, トレカ"}]]
