@@ -5,20 +5,18 @@ import { featuredProducts, newProducts, categories, products } from '@/lib/data/
 
 export default function Home() {
   // PSA鑑定済み商品を取得
-  const psaProducts = products.filter(p => p.psaGrade !== undefined).slice(0, 8);
-  const boxProducts = products.filter(p => p.name.includes('BOX') || p.name.includes('カートン')).slice(0, 8);
+  const psaProducts = products.filter(p => p.psaGrade !== undefined).slice(0, 12);
+  const boxProducts = products.filter(p => p.name.includes('BOX') || p.name.includes('カートン')).slice(0, 12);
 
   return (
-    <div className="bg-gray-50">
+    <div className="">
       {/* ヒーローバナー */}
       <section className="bg-white border-b border-gray-200">
-        <div className="max-w-7xl mx-auto">
-          <div className="relative h-64 md:h-96 bg-gradient-to-r from-red-600 to-orange-500">
-            <div className="absolute inset-0 flex items-center justify-center text-white">
-              <div className="text-center">
-                <h1 className="text-3xl md:text-5xl font-bold mb-4">トレーディングカード専門店</h1>
-                <p className="text-lg md:text-xl">PSA鑑定済みカード多数取り扱い中</p>
-              </div>
+        <div className="relative h-48 md:h-64 bg-gradient-to-r from-red-600 to-orange-500">
+          <div className="absolute inset-0 flex items-center justify-center text-white">
+            <div className="text-center">
+              <h1 className="text-2xl md:text-4xl font-bold mb-2">トレーディングカード専門店</h1>
+              <p className="text-base md:text-lg">PSA鑑定済みカード多数取り扱い中</p>
             </div>
           </div>
         </div>
@@ -85,13 +83,13 @@ export default function Home() {
       </section>
 
       {/* おすすめ商品 */}
-      <section className="py-8">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="bg-white rounded-lg p-6">
-            <div className="flex items-center justify-between mb-6">
+      <section className="py-6">
+        <div className="px-4">
+          <div className="bg-white rounded p-4">
+            <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
-                <span className="text-2xl">🔥</span>
-                <h2 className="text-xl font-bold text-gray-900">おすすめ商品</h2>
+                <span className="text-xl">🔥</span>
+                <h2 className="text-lg font-bold text-gray-900">おすすめ商品</h2>
               </div>
               <Link 
                 href="/products?filter=featured"
@@ -101,8 +99,8 @@ export default function Home() {
               </Link>
             </div>
             
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-4">
-              {featuredProducts.slice(0, 8).map((product) => (
+            <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+              {featuredProducts.slice(0, 12).map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}
             </div>
@@ -111,13 +109,13 @@ export default function Home() {
       </section>
 
       {/* 新着商品 */}
-      <section className="py-8">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="bg-white rounded-lg p-6">
-            <div className="flex items-center justify-between mb-6">
+      <section className="py-6">
+        <div className="px-4">
+          <div className="bg-white rounded p-4">
+            <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
-                <span className="text-2xl">🆕</span>
-                <h2 className="text-xl font-bold text-gray-900">新着商品</h2>
+                <span className="text-xl">🆕</span>
+                <h2 className="text-lg font-bold text-gray-900">新着商品</h2>
               </div>
               <Link 
                 href="/products?filter=new"
@@ -127,8 +125,8 @@ export default function Home() {
               </Link>
             </div>
             
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-4">
-              {newProducts.slice(0, 8).map((product) => (
+            <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+              {newProducts.slice(0, 12).map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}
             </div>
@@ -137,13 +135,13 @@ export default function Home() {
       </section>
 
       {/* BOX・カートン商品 */}
-      <section className="py-8">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="bg-white rounded-lg p-6">
-            <div className="flex items-center justify-between mb-6">
+      <section className="py-6">
+        <div className="px-4">
+          <div className="bg-white rounded p-4">
+            <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
-                <span className="text-2xl">📦</span>
-                <h2 className="text-xl font-bold text-gray-900">BOX・カートン商品</h2>
+                <span className="text-xl">📦</span>
+                <h2 className="text-lg font-bold text-gray-900">BOX・カートン商品</h2>
               </div>
               <Link 
                 href="/category/box"
@@ -153,7 +151,7 @@ export default function Home() {
               </Link>
             </div>
             
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
               {boxProducts.map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}
@@ -163,13 +161,13 @@ export default function Home() {
       </section>
 
       {/* PSA鑑定済みカード */}
-      <section className="py-8">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="bg-white rounded-lg p-6">
-            <div className="flex items-center justify-between mb-6">
+      <section className="py-6">
+        <div className="px-4">
+          <div className="bg-white rounded p-4">
+            <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
-                <span className="text-2xl">⭐</span>
-                <h2 className="text-xl font-bold text-gray-900">PSA鑑定済みカード</h2>
+                <span className="text-xl">⭐</span>
+                <h2 className="text-lg font-bold text-gray-900">PSA鑑定済みカード</h2>
                 <span className="bg-blue-600 text-white text-xs px-2 py-1 rounded-full font-bold">高品質保証</span>
               </div>
               <Link 
@@ -180,7 +178,7 @@ export default function Home() {
               </Link>
             </div>
             
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
               {psaProducts.map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}

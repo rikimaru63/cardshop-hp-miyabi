@@ -97,8 +97,8 @@ export default function Sidebar() {
   };
 
   return (
-    <aside className="w-64 bg-white border-r border-gray-200 min-h-screen">
-      <div className="p-4">
+    <aside className="w-60 bg-white border-r border-gray-200 min-h-screen sticky top-[65px] h-[calc(100vh-65px)] overflow-y-auto">
+      <div className="p-3">
         {/* メインカテゴリ */}
         <div className="mb-6">
           <h3 className="text-sm font-bold text-gray-700 uppercase mb-3 px-2">カテゴリー</h3>
