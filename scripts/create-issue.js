@@ -5,6 +5,11 @@
  * カードショップHP開発用のGitHub Issue自動作成スクリプト
  */
 
+import { exec } from 'child_process';
+import { promisify } from 'util';
+
+const execAsync = promisify(exec);
+
 const issues = [
   {
     title: "🎯 在庫管理システムの実装",
@@ -157,19 +162,19 @@ NextAuth.jsを使用したユーザー認証システムの構築
 ];
 
 // GitHub CLI を使用してIssueを作成
-const { execSync } = require('child_process');
-
 async function createIssues() {
   console.log('🌸 Miyabi Agent - Creating GitHub Issues...\n');
 
   for (const issue of issues) {
     const labels = issue.labels.join(',');
-    const command = `gh issue create --title "${issue.title}" --body "${issue.body.replace(/"/g, '\\"').replace(/\n/g, '\\n')}" --label "${labels}"`;
+    const body = issue.body.replace(/"/g, '\\"').replace(/\n/g, '\\n');
+    const command = `gh issue create --repo rikimaru63/cardshop-hp-miyabi --title "${issue.title}" --body "${body}" --label "${labels}"`;
     
     try {
       console.log(`📝 Creating issue: ${issue.title}`);
-      execSync(command, { encoding: 'utf-8', shell: true });
-      console.log(`✅ Created successfully!\n`);
+      const { stdout } = await execAsync(command);
+      console.log(`✅ Created successfully!`);
+      console.log(`   ${stdout.trim()}\n`);
       
       // Rate limit回避のため少し待機
       await new Promise(resolve => setTimeout(resolve, 2000));
@@ -184,8 +189,6 @@ async function createIssues() {
 }
 
 // メイン実行
-if (require.main === module) {
-  createIssues().catch(console.error);
-}
+createIssues().catch(console.error);
 
-module.exports = { issues };
+export { issues };

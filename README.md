@@ -1,4 +1,7 @@
-# my-ai-project
+# 🛍️ CardShop HP - International Trading Card Marketplace
+
+[![CI Test Pipeline](https://github.com/rikimaru63/cardshop-hp-miyabi/actions/workflows/ci-test.yml/badge.svg)](https://github.com/rikimaru63/cardshop-hp-miyabi/actions/workflows/ci-test.yml)
+[![Autonomous Agent](https://github.com/rikimaru63/cardshop-hp-miyabi/actions/workflows/autonomous-agent.yml/badge.svg)](https://github.com/rikimaru63/cardshop-hp-miyabi/actions/workflows/autonomous-agent.yml)
 
 Autonomous development powered by **Miyabi** - AI-driven development framework.
 
