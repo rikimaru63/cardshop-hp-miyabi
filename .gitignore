@@ -63,3 +63,4 @@ Thumbs.db
 .ai/logs/
 .ai/parallel-reports/
 .ai/cache/
+node_modules
