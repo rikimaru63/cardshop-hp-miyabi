@@ -455,7 +455,7 @@ export function searchProducts(query: string): Product[] {
   const lowercaseQuery = query.toLowerCase();
   return products.filter(p => 
     p.name.toLowerCase().includes(lowercaseQuery) ||
-    p.description.toLowerCase().includes(lowercaseQuery) ||
+    (p.description && p.description.toLowerCase().includes(lowercaseQuery)) ||
     p.category.toLowerCase().includes(lowercaseQuery)
   );
 }

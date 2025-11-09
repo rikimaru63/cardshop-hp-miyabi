@@ -309,16 +309,170 @@ export const useSearchStore = create<SearchState>()(
           params.set('page', (state.pagination?.page || 1).toString());
           params.set('limit', '20');
 
-          const response = await fetch(`/api/search?${params.toString()}`);
+          // Import products data locally instead of API call
+          const { products, categories } = await import('@/lib/data/products');
           
-          if (!response.ok) {
-            throw new Error(`Search failed: ${response.statusText}`);
+          // Apply filters locally
+          let filteredProducts = [...products];
+          
+          // Filter by query
+          if (state.filters.query) {
+            const query = state.filters.query.toLowerCase();
+            filteredProducts = filteredProducts.filter(p => 
+              p.name.toLowerCase().includes(query) ||
+              (p.description && p.description.toLowerCase().includes(query))
+            );
           }
-
-          const data = await response.json();
+          
+          // Filter by category
+          if (state.filters.category) {
+            filteredProducts = filteredProducts.filter(p => 
+              p.categoryId === state.filters.category
+            );
+          }
+          
+          // Filter by game types
+          if (state.filters.gameTypes.length > 0) {
+            filteredProducts = filteredProducts.filter(p => 
+              state.filters.gameTypes.includes(p.gameType)
+            );
+          }
+          
+          // Filter by conditions
+          if (state.filters.conditions.length > 0) {
+            filteredProducts = filteredProducts.filter(p => 
+              p.condition && state.filters.conditions.includes(p.condition)
+            );
+          }
+          
+          // Filter by rarities
+          if (state.filters.rarities.length > 0) {
+            filteredProducts = filteredProducts.filter(p => 
+              p.rarity && state.filters.rarities.includes(p.rarity)
+            );
+          }
+          
+          // Filter by price range
+          const currency = state.filters.currency;
+          const priceField = currency === 'USD' ? 'priceUsd' : 'priceJpy';
+          if (state.filters.priceMin !== undefined) {
+            filteredProducts = filteredProducts.filter(p => 
+              p[priceField] >= state.filters.priceMin!
+            );
+          }
+          if (state.filters.priceMax !== undefined) {
+            filteredProducts = filteredProducts.filter(p => 
+              p[priceField] <= state.filters.priceMax!
+            );
+          }
+          
+          // Filter by stock status
+          if (state.filters.stockStatus === 'in_stock') {
+            filteredProducts = filteredProducts.filter(p => p.stockQuantity > 0);
+          } else if (state.filters.stockStatus === 'out_of_stock') {
+            filteredProducts = filteredProducts.filter(p => p.stockQuantity === 0);
+          }
+          
+          // Apply sorting
+          const sortedProducts = [...filteredProducts];
+          switch (state.filters.sort) {
+            case 'name_asc':
+              sortedProducts.sort((a, b) => a.name.localeCompare(b.name));
+              break;
+            case 'name_desc':
+              sortedProducts.sort((a, b) => b.name.localeCompare(a.name));
+              break;
+            case 'price_asc':
+              sortedProducts.sort((a, b) => a[priceField] - b[priceField]);
+              break;
+            case 'price_desc':
+              sortedProducts.sort((a, b) => b[priceField] - a[priceField]);
+              break;
+            case 'stock_asc':
+              sortedProducts.sort((a, b) => a.stockQuantity - b.stockQuantity);
+              break;
+            case 'stock_desc':
+              sortedProducts.sort((a, b) => b.stockQuantity - a.stockQuantity);
+              break;
+            case 'newest':
+              sortedProducts.sort((a, b) => (b.createdAt || '').localeCompare(a.createdAt || ''));
+              break;
+            case 'oldest':
+              sortedProducts.sort((a, b) => (a.createdAt || '').localeCompare(b.createdAt || ''));
+              break;
+          }
+          
+          // Create response data with transformed products
+          const page = state.pagination?.page || 1;
+          const limit = 20;
+          const startIndex = (page - 1) * limit;
+          const paginatedProducts = sortedProducts.slice(startIndex, startIndex + limit);
+          
+          // Transform Product to SearchResult
+          const searchResults: SearchResult[] = paginatedProducts.map(p => {
+            // Find category info
+            const categoryInfo = categories.find(c => c.slug === p.categoryId) || {
+              id: p.categoryId,
+              name: p.category,
+              slug: p.categoryId,
+            };
+            
+            return {
+              id: p.id,
+              sku: p.sku,
+              nameEn: p.nameEn,
+              nameJa: p.nameJa,
+              categoryId: p.categoryId,
+              category: {
+                id: categoryInfo.id,
+                nameEn: categoryInfo.name,
+                nameJa: categoryInfo.name,
+                slug: categoryInfo.slug,
+              },
+              gameType: p.gameType,
+              cardSet: p.set || p.cardSet,
+              cardNumber: p.cardNumber,
+              rarity: p.rarity,
+              condition: p.condition || 'MINT' as CardCondition,
+              psaGrade: p.psaGrade,
+              bgsGrade: p.bgsGrade,
+              priceUsd: p.priceUsd,
+              priceJpy: p.priceJpy,
+              stockQuantity: p.stockQuantity,
+              images: p.images || [p.imageUrl],
+              description: p.description,
+              featured: p.featured || false,
+              active: p.active || true,
+              createdAt: p.createdAt || new Date().toISOString(),
+              updatedAt: p.updatedAt || new Date().toISOString(),
+            };
+          });
+          
+          const data = {
+            results: searchResults,
+            pagination: {
+              page,
+              limit,
+              total: filteredProducts.length,
+              totalPages: Math.ceil(filteredProducts.length / limit),
+              hasNextPage: startIndex + limit < filteredProducts.length,
+              hasPreviousPage: page > 1,
+            },
+            filters: {
+              available: {
+                gameTypes: [],
+                rarities: [],
+                conditions: [],
+                priceRange: {
+                  min: { usd: 0, jpy: 0 },
+                  max: { usd: 10000, jpy: 1000000 },
+                },
+              },
+            },
+          };
           
           set({
-            results: data.products,
+            results: data.results,
             pagination: data.pagination,
             availableFilters: data.filters.available,
             isLoading: false,
